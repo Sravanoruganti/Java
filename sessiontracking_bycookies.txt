@@ -1,0 +1,91 @@
+index.html:
+
+
+<form action="FirstServlet" method="post">
+name:<input type="text" name="userName"/><br><br>
+<input type="submit" value="go"/>
+
+
+
+
+FirstServlet.java:
+
+
+
+public class FirstServlet extends HttpServlet {  
+  
+  
+	private static final long serialVersionUID = 1L;
+
+public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{  
+    
+  
+    response.setContentType("text/html");  
+    PrintWriter out = response.getWriter(); 
+    
+    String n=request.getParameter("userName");
+    out.print("welcome"+n);
+    
+    
+    Cookie ck=new Cookie("uname",n);
+    response.addCookie(ck);
+    
+    out.print("<form action='SecondServlet' method='post'>");
+    out.print("<input type='submit' value='go'>");
+    out.print("<form>");  
+        	 
+  }  
+}  
+
+
+
+SecondServlet.java:
+public class SecondServlet extends HttpServlet {  
+  
+
+	private static final long serialVersionUID = 1L;
+
+public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException{  
+   
+  
+    response.setContentType("text/html");  
+    PrintWriter out = response.getWriter();  
+      
+    Cookie ck[]=request.getCookies();  
+    out.print("Hello "+ck[0].getValue());  
+  
+    out.close();  
+  
+         }
+    }  
+      
+
+
+web.xml:
+
+
+<servlet>
+    <servlet-name>FirstServlet</servlet-name>
+    <servlet-class>com.servlet.FirstServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FirstServlet</servlet-name>
+    <url-pattern>/FirstServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+  <servlet-name>SecondServlet</servlet-name>
+  <servlet-class>com.servlet.SecondServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>SecondServlet</servlet-name>
+  <url-pattern>/SecondServlet</url-pattern>
+  
+  
+  </servlet-mapping>
+
+
+
