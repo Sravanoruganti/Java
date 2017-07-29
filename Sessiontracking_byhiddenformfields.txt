@@ -1,0 +1,86 @@
+index.html:
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="MyFirstServlet" method="post">
+Name:<input type="text" name="userName"/><br><br>
+<input type="submit" value="go">
+
+</form>
+
+</body>
+</html>
+
+
+MyFirstServlet.java:
+
+public class MyFirstServlet extends HttpServlet {
+	
+
+	
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		
+		String n=request.getParameter("userName");
+		out.print("welcome" +n);
+		
+		out.print("<form action='MySecondServlet'>");
+		out.print("<input type='hidden' name='uname' value='"+n+"'>");
+		out.print("<input type='submit' value='go'>");  
+        out.print("</form>");	
+		
+	}
+
+}
+
+
+MySecondServlet:
+
+public class MySecondServlet extends HttpServlet {
+	
+	
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+	            response.setContentType("text/html");  
+		        PrintWriter out = response.getWriter();  
+		          
+		       
+		        String n=request.getParameter("uname");  
+		        out.print("Hello "+n);  
+		  
+		   
+		}  
+	}
+
+
+web.xml:
+
+
+ <servlet>
+    <servlet-name>MyFirstServlet</servlet-name>
+    <servlet-class>com.testing.MyFirstServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyFirstServlet</servlet-name>
+    <url-pattern>/MyFirstServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SecondServlet</servlet-name>
+    <servlet-class>com.testing.MySecondServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SecondServlet</servlet-name>
+    <url-pattern>/MySecondServlet</url-pattern>
+  </servlet-mapping>
