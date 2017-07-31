@@ -1,0 +1,75 @@
+index.jsp:
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="Helloworld" method="post">
+Name:<input type="text" name="userName"/><br><br>
+Password:<input type="Password" name="userPass"/><br><br>
+Email Id:<input type="text" name="userEmail"/><br><br>
+Phone Number:<input type="Phonenum" name="userPhone"/><br><br>
+
+Country:  
+<select name="userCountry">  
+<option>India</option>  
+<option>Pakistan</option>  
+<option>other</option>  
+</select>  
+  
+<br/><br/>  
+<input type="submit" value="register">
+</form>
+
+</body>
+</html>
+
+
+Helloworld.java:
+
+package com.servlet;
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+public class Helloworld extends HttpServlet {
+	
+	
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		
+		
+		String n=request.getParameter("userName");
+		String p=request.getParameter("userPass");
+		String q=request.getParameter("userEmail");
+		String r=request.getParameter("userPhone");
+		String s=request.getParameter("userCountry");
+		  
+		
+		
+		
+		out.print("<br />Your UserName is: " +n) ;
+		out.print("<br />Your password is: " +p); 
+		out.print("<br />Your Email id is: " +q); 
+		out.print("<br />Your Phone number is: " +r); 
+		out.print("<br />Your contry is: " +s); 
+		  
+
+}
+}
+	
